@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="dist/appbundle.js" charset="utf-8"></script>
+    <script src="dist/app.bundle.js" charset="utf-8"></script>
     <meta charset="utf-8">
     <title>ninja-slides</title>
   </head>
@@ -10,12 +10,37 @@
 
     </header>
     <main>
-
     </main>
 
 
     <footer>
 
     </footer>
+        <!-- in the css files add the background image for the basic slide -->
+        <template id="basic-slide">
+            <h1 class="title"></h1>
+            <p class="description"></p>
+            <!-- insert an li for each topic -->
+            <ul class="topics">
+            <ul>
+        </template>
+
+        <!-- in the css files add the background image for the basic slide -->
+        <template id="interstitial-slide">
+            <img />
+            <h1 class="caption"></h1>
+        </template>
+
+        <!-- in the css files add the background image for the basic slide -->
+        <template id="code-slide">
+            <h1 class="title"></h1>
+            <p class="description"></p>
+            <div class="code-with-comments">
+                    <!-- insert an li for each topic -->
+                    <ul class="topics">
+                    <ul>
+                    <img />
+            </div>
+        </template>
   </body>
 </html>
