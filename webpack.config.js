@@ -34,7 +34,9 @@ const config = {
   },
   devtool: 'inline-source-map',
   plugins: [
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true
+    })
   ],
   resolve: {
       extensions: [".js"],

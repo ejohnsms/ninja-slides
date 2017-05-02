@@ -1,10 +1,10 @@
-import SlideData from '../src/slideData'
+import DataAccess from '../src/data-access'
 import {expect} from 'chai'
 
-describe('test getData', function() {
-    const slideData = new SlideData();
+describe('test data access', function() {
+    const dataAccess = new DataAccess();
 
-  it('has a getSlidesData function', function() {
-    expect(typeof slideData.getSlidesData).to.be.a('function');
+  it('has a makeAjax function', function() {
+    expect(dataAccess).to.have.property('makeAjax');
   });
 })

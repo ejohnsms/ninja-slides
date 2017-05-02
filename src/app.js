@@ -3,9 +3,9 @@
 
 // Import the template binder
 // Take the slide data and attach it to the proper template
-import ButtonWidget from './ButtonWidget';
-import SlideData from './slideData';
-import SlideDeck from './slideDeck';
+import ButtonWidget from './button-widget';
+import SlideData from './data-access';
+import SlideDeck from './slide-deck';
 
 const gistSlidesUrl = 'https://gist.githubusercontent.com/ejohnsms/078f3601da7128a48ae916c6e9c74654/raw/0154593bfab52875622ff06e3f0ecda2ba091309/slides.json',
       slideData = new SlideData(),
@@ -32,9 +32,6 @@ pBtn.init();
 nBtn.init();
 
 sDeck.init();
-
-
-
 
 
 // Const homeButton = document.getElementsByName('home-button')[0];
