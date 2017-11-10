@@ -1,7 +1,10 @@
 export default class ButtonWidget {
-    constructor(buttonElement, actionName){
+    constructor(buttonElement, actionName, pb) {
+        this._action = actionName;
         this._button = buttonElement;
-        this._event = new Event(actionName);
+        this._pb = pb;
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     init() {
@@ -11,18 +14,9 @@ export default class ButtonWidget {
     }
 
     handleClick() {
-      this._button.dispatchEvent(this._event);
-    }
-
-    get Button(){
-        return this._button;
-    }
-
-    get Action(){
-      return this._event;
-    }
-
-    set Action(value){
-      this._event = value;
+      this._pb.publish(this._action, {
+                                      'action': this._action,
+                                      'info': 'this is some info'
+                                      });
     }
 }

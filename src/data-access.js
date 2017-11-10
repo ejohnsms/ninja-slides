@@ -1,15 +1,20 @@
 const SUCCESS_STATUS = 200
 
 export default class DataAccess {
+
+    getSlideData(url) {
+      return this.makeAjax('GET', url);
+    }
+
     // This can be more generic by passing in the url param
     // Read the gist json data and return a promise
-
     makeAjax(verb, url, data = null) {
             const dataPromise = new Promise((resolve, reject) => {
                 const request = new XMLHttpRequest();
 
-                request.open(verb, url);
-                request.responseType = 'JSON';
+                request.responseType = 'json';
+
+                request.open(verb, url, true);
                 // When the request loads, check whether it was successful
                 request.onload = () => {
                     if (request.status === SUCCESS_STATUS) {
@@ -17,6 +22,7 @@ export default class DataAccess {
                         resolve(request.response);
                     } else {
                         // If it fails, reject the promise with a error message
+                        // Standard is to throw an exception
                         reject(Error(`error:${request.statusText}`));
                     }
                 };

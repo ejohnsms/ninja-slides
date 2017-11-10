@@ -22,7 +22,7 @@ const config = {
         use: {
           loader: 'babel-loader',
             options: {
-            presets: ['es2015']
+            presets: ['env']
           }
         }
       },
@@ -32,7 +32,7 @@ const config = {
       }
     ]
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true

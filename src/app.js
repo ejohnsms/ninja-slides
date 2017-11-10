@@ -4,35 +4,34 @@
 // Import the template binder
 // Take the slide data and attach it to the proper template
 import ButtonWidget from './button-widget';
+import PubSub from './pub-sub';
 import SlideData from './data-access';
 import SlideDeck from './slide-deck';
 
 const gistSlidesUrl = 'https://gist.githubusercontent.com/ejohnsms/078f3601da7128a48ae916c6e9c74654/raw/0154593bfab52875622ff06e3f0ecda2ba091309/slides.json',
       slideData = new SlideData(),
       dataPromise = slideData.getSlideData(gistSlidesUrl),
+      [slideContainer] = document.getElementsByTagName('main'),
       [pBtnEl] = document.getElementsByName('prev-button'),
       [nBtnEl] = document.getElementsByName('next-button'),
-      [slideContainer] = document.getElementsByTagName('main'),
-      pBtn = new ButtonWidget(pBtnEl, 'prev'),
-      nBtn = new ButtonWidget(nBtnEl, 'next');
+      pb = new PubSub(),
+      pBtn = new ButtonWidget(pBtnEl, 'prev', pb),
+      nBtn = new ButtonWidget(nBtnEl, 'next', pb);
 
 let slides = null,
-    sDeck = null;
+    slideDeck = null;
 
 dataPromise.then((responseData) => {
-  slides = Object.assign({}, responseData);
-  sDeck = new SlideDeck(slides, slideContainer);
-  console.warn(`success: ${responseData}`);
+  slides = Object.assign([], responseData);
+  slideDeck = new SlideDeck(slides, slideContainer, pb);
+
+  pBtn.init();
+  nBtn.init();
+  slideDeck.init();
 },
 (errorMessage) => {
   console.warn(`error: ${errorMessage}`);
 });
-
-pBtn.init();
-nBtn.init();
-
-sDeck.init();
-
 
 // Const homeButton = document.getElementsByName('home-button')[0];
 // Const basicSlide = document.querySelector('basic-slide');

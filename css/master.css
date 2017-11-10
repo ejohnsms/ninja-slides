@@ -1,0 +1,23 @@
+
+
+.slide-container {
+  min-height: 600px;
+  min-width: 900px;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.btn {
+  min-width: 50px;
+  font-size: 18px;
+}
+
+.btn-next {
+  margin-left: 10px;
+}
+
+.btn-prev {
+  margin-right: 10px;
+}
