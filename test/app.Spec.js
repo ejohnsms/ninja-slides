@@ -1,10 +1,10 @@
-import DataAccess from '../src/data-access'
-import {expect} from 'chai'
+import { expect } from 'chai';
+import DataAccess from '../src/data-access';
 
-describe('test data access', function() {
-    const dataAccess = new DataAccess();
+describe('test data access', () => {
+  const dataAccess = new DataAccess();
 
-  it('has a makeAjax function', function() {
+  it('has a makeAjax function', () => {
     expect(dataAccess).to.have.property('makeAjax');
   });
-})
+});

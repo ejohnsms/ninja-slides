@@ -1,52 +1,67 @@
-const webpack = require('webpack'); //to access built-in plugins
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const config = {
+module.exports = {
   entry: {
     app: './src/app.js',
-    spec: './test/app.Spec.js'
+    test: './test/app.Spec.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js'
   },
+  resolve: {
+    extensions: ['.js']
+  },
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /.jsx?$/,
+        include: [
+          path.resolve(__dirname, 'app'),
+          path.resolve(__dirname, 'test')
+        ],
+        exclude: /(node_modules | bower_components)/,
+        use: {
+          loader: 'eslint-loader'
+        }
+      },
+      {
         test: /\.(js|jsx)$/,
         include: [
-          path.join(__dirname, 'src'),
-          path.join(__dirname, 'test')
+          path.resolve(__dirname, 'src')
         ],
-        exclude: /node_modules/,
+        exclude: /(node_modules | bower_components)/,
         use: {
           loader: 'babel-loader',
-            options: {
+          options: {
             presets: ['env']
           }
         }
       },
       {
         test: /\.(js|jsx)$/,
-        use: 'eslint-loader'
+        include: [
+          path.resolve(__dirname, 'test')
+        ],
+        exclude: /(node_modules | bower_components)/,
+        use: {
+          loader: 'mocha-loader'
+        }
       }
     ]
   },
   devtool: 'source-map',
+  devServer: {
+    contentBase: path.resolve(__dirname, './'),
+    compress: true,
+    port: 9000,
+    open: true
+  },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+    new UglifyJSPlugin({
       sourceMap: true
     })
-  ],
-  resolve: {
-      extensions: [".js"],
-      modules: [
-          __dirname,
-          path.resolve(__dirname, "./node_modules")
-      ]
-  }
-  // this works but do we need this if karma is watching
-  // watch: true
-};
-
-module.exports = config;
+  ]
+}

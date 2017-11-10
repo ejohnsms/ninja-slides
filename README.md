@@ -1,15 +1,9 @@
 # ninja-slides
-slide show presentations of front-end code for back end devs POs.
+slide show presentations of front-end code for back end devs and POs.
 
-removed:         
-"sort-vars": "error",
-from .eslintrc
+to run: npm run-script serve
+
+using airbnb plugin for eslint
 
 todo:
-add timer to page
-
-open the json server
-./node_modules/.bin/json-server --watch ./json/slides.json
-
-open the dev server
-$ ./node_modules/.bin/webpack-dev-server --open
+remove old karma plugins
