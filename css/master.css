@@ -1,3 +1,22 @@
+.title, .caption {
+  color: #03a9f4;
+}
+
+.topics {
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.topics li {
+  list-style-type: circle;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: 400;
+}
 
 .content-wrapper {
   height: 500px;
@@ -18,8 +37,18 @@
 }
 
 .btn {
+  background-color: #c3fffa;
   min-width: 50px;
   font-size: 18px;
+  -webkit-transition: background-color 2s ease-out;
+  -moz-transition: background-color 2s ease-out;
+  -o-transition: background-color 2s ease-out;
+  transition: background-color 2s ease-out;
+}
+
+.btn:hover {
+  background-color: #03a9f4;
+  cursor: pointer;
 }
 
 .btn-next {
