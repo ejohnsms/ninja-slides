@@ -1,8 +1,16 @@
 
+.content-wrapper {
+  height: 500px;
+  width: 650px;
+  position: relative;
+}
 
 .slide-container {
-  min-height: 600px;
-  min-width: 900px;
+  height: 300px;
+  width: 450px;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
 }
 
 .button-container {

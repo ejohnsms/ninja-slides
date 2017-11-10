@@ -1,9 +1,11 @@
+import SlideRenderer from './slide-renderer';
+
 export default class SlideDeck {
   constructor(slideData, slideContainer, pb) {
     this._sd = slideData;
-    this._slideContainer = slideContainer;
     this._pb = pb;
     this._sn = 0;
+    this._sr = new SlideRenderer(slideContainer);
 
     this.navigateSlideDeck = this.navigateSlideDeck.bind(this);
   }
@@ -47,7 +49,8 @@ export default class SlideDeck {
   }
 
   renderSlide() {
-    console.warn(this._sd[this._sn]);
+    this._sr.clearSlideContainer();
+    this._sr.displaySlide(this._sd[this._sn]);
   }
 
   init(){
