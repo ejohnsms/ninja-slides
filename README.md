@@ -1,9 +1,14 @@
 # ninja-slides
 slide show presentations of front-end code for back end devs and POs.
 
-to run: npm run-script serve
+#### to run: 
+* npm run-script serve
 
-using airbnb plugin for eslint
+#### notes:
+* using airbnb plugin for eslint
+* using the html5 template tag
 
-todo:
-remove old karma plugins
+#### todo:
+1. make resposive
+2. remove old karma plugins
+
