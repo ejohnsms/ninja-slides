@@ -11,6 +11,7 @@ export default class SlideDeck {
   }
 
   navigateSlideDeck(pbInfo) {
+    console.warn(pbInfo);
     switch (pbInfo.action) {
       case 'next':
         this.nextSlide();

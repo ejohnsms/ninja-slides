@@ -4,13 +4,15 @@ export default class PubSub {
   }
 
   subscribe (name, callback) {
-    this._subscription[name] = callback;
+    this._subscription[name] = this._subscription[name] || [];
+    this._subscription[name].push(callback);
   }
 
   publish (name, data) {
     if (this._subscription[name]) {
-    Reflect.apply(this._subscription[name],
-      this._subscription[name], [data]);
+      this._subscription[name].forEach((sub) => {
+        Reflect.apply(sub, sub, [data]);
+      });
     }
   }
 }
