@@ -10,7 +10,9 @@
     "build": "webpack --progress --color",
     "lint": "eslint ./src/** ./test/** --color",
     "serve": "webpack-dev-server --progress",
-    "test": "mocha --require babel-register"
+    "test": "mocha --require babel-register",
+    "copy": "gsutil rsync -R dist gs://www.ninja-slides.com",
+    "setacl": "gsutil acl ch -u AllUsers:R gs://www.ninja-slides.com/*"
   },
   "repository": {
     "type": "git",
