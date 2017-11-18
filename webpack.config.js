@@ -1,5 +1,9 @@
 const path = require('path');
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -11,7 +15,7 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.jsx']
   },
   module: {
     rules: [
@@ -19,7 +23,7 @@ module.exports = {
         enforce: 'pre',
         test: /.jsx?$/,
         include: [
-          path.resolve(__dirname, 'app'),
+          path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'test')
         ],
         exclude: /(node_modules | bower_components)/,
@@ -36,7 +40,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env']
+            presets: ['env','react']
           }
         }
       },
@@ -49,19 +53,45 @@ module.exports = {
         use: {
           loader: 'mocha-loader'
         }
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [ 'css-loader' ]
+        })
       }
     ]
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, './'),
+    contentBase: path.resolve(__dirname, 'dist'),
     compress: true,
     port: 9000,
     open: true
   },
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new UglifyJSPlugin({
       sourceMap: true
+    }),
+    new HtmlWebpackPlugin({
+      title: 'ninja-slides',
+      inject: 'body',
+      chunks: ['app'],
+      template: '!!ejs-compiled-loader!./templates/index.ejs',
+      filename: 'index.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Test',
+      inject: 'body',
+      chunks: ['test'],
+      template: '!!ejs-compiled-loader!./templates/index.Spec.ejs',
+      filename: 'index.spec.html'
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin({
+      filename: '[name].css'
     })
   ]
 }

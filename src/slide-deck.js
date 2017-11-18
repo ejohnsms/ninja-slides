@@ -2,10 +2,10 @@ import SlideRenderer from './slide-renderer';
 
 export default class SlideDeck {
   constructor(slideData, slideContainer, pb) {
-    this._sd = slideData;
-    this._pb = pb;
-    this._sn = 0;
-    this._sr = new SlideRenderer(slideContainer);
+    this.sd = slideData;
+    this.pb = pb;
+    this.sn = 0;
+    this.sr = new SlideRenderer(slideContainer);
 
     this.navigateSlideDeck = this.navigateSlideDeck.bind(this);
   }
@@ -20,43 +20,49 @@ export default class SlideDeck {
         this.prevSlide();
         break;
       default:
-
     }
   }
 
   nextSlide() {
     const ONE = 1;
 
-    if (this._sn + ONE <= this._sd.length - ONE) {
-      this._sn += ONE;
+    if (this.sn + ONE <= this.sd.length - ONE) {
+      this.sn += ONE;
     } else {
-      this._sn = this._sd.length - ONE;
+      this.sn = this.sd.length - ONE;
     }
 
     this.renderSlide();
   }
 
   prevSlide() {
-    const ONE = 1,
-      ZERO = 0;
+    const ONE = 1;
+    const ZERO = 0;
 
-    if (this._sn - ONE > ZERO) {
-      this._sn -= ONE;
+    if (this.sn - ONE > ZERO) {
+      this.sn -= ONE;
     } else {
-      this._sn = ZERO;
+      this.sn = ZERO;
     }
 
     this.renderSlide();
   }
 
   renderSlide() {
-    this._sr.clearSlideContainer();
-    this._sr.displaySlide(this._sd[this._sn]);
+    this.sr.clearSlideContainer();
+    this.sr.displaySlide(this.sd[this.sn]);
+
+    this.pb.publish('render', {
+      action: 'render',
+      info: {
+        slide: this.sn,
+        length: this.sd.length,
+      },
+    });
   }
 
-  init(){
-    this._pb.subscribe('prev', this.navigateSlideDeck);
-    this._pb.subscribe('next', this.navigateSlideDeck);
+  init() {
+    this.pb.subscribe('prev', this.navigateSlideDeck);
+    this.pb.subscribe('next', this.navigateSlideDeck);
   }
-
 }

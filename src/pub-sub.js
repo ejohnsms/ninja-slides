@@ -1,16 +1,16 @@
 export default class PubSub {
-  constructor () {
-    this._subscription = {};
+  constructor() {
+    this.subscription = {};
   }
 
-  subscribe (name, callback) {
-    this._subscription[name] = this._subscription[name] || [];
-    this._subscription[name].push(callback);
+  subscribe(name, callback) {
+    this.subscription[name] = this.subscription[name] || [];
+    this.subscription[name].push(callback);
   }
 
-  publish (name, data) {
-    if (this._subscription[name]) {
-      this._subscription[name].forEach((sub) => {
+  publish(name, data) {
+    if (this.subscription[name]) {
+      this.subscription[name].forEach((sub) => {
         Reflect.apply(sub, sub, [data]);
       });
     }

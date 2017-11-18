@@ -7,30 +7,80 @@ import ButtonWidget from './button-widget';
 import PubSub from './pub-sub';
 import SlideData from './data-access';
 import SlideDeck from './slide-deck';
+import '../styles/index.css';
 
-const gistSlidesUrl = 'https://gist.githubusercontent.com/ejohnsms/078f3601da7128a48ae916c6e9c74654/raw/ecf40674d5cb5e5aa2b592fae5fb10502f28c33a/slides.json',
-      slideData = new SlideData(),
-      dataPromise = slideData.getSlideData(gistSlidesUrl),
-      [slideContainer] = document.getElementsByClassName('slide-container'),
-      [pBtnEl] = document.getElementsByName('prev-button'),
-      [nBtnEl] = document.getElementsByName('next-button'),
-      pb = new PubSub(),
-      pBtn = new ButtonWidget(pBtnEl, 'prev', pb),
-      nBtn = new ButtonWidget(nBtnEl, 'next', pb);
+const gistSlidesUrl = 'https://gist.githubusercontent.com/ejohnsms/078f3601da7128a48ae916c6e9c74654/raw/ecf40674d5cb5e5aa2b592fae5fb10502f28c33a/slides.json';
+const [slideContainer] = document.getElementsByClassName('slide-container');
+const [pBtnEl] = document.getElementsByName('prev-button');
+const [nBtnEl] = document.getElementsByName('next-button');
+const pb = new PubSub();
+const pBtn = new ButtonWidget(pBtnEl, 'prev', pb);
+const nBtn = new ButtonWidget(nBtnEl, 'next', pb);
 
-let slides = null,
-    slideDeck = null;
+class SlideApp {
+  constructor(pubSub, prevBtn, nextBtn) {
+    this.pb = pubSub;
+    this.pBtn = prevBtn;
+    this.nBtn = nextBtn;
 
-dataPromise.then((responseData) => {
-  slides = Object.assign([], responseData);
-  slideDeck = new SlideDeck(slides, slideContainer, pb);
+    this.handleRender = this.handleRender.bind(this);
+  }
 
-  pBtn.init();
-  nBtn.init();
-  slideDeck.init();
+  init() {
+    SlideData.getSlideData(gistSlidesUrl).then(
+      (responseData) => {
+        this.slides = Object.assign([], responseData);
+        // this is a good place for a curry function
+        // to delay the execution until the data is retrieved - fix this!
+        this.slideDeck = new SlideDeck(this.slides, slideContainer, this.pb);
 
-  slideDeck.renderSlide();
-},
-(errorMessage) => {
-  console.warn(`error: ${errorMessage}`);
-});
+        this.pBtn.init();
+        this.nBtn.init();
+        this.slideDeck.init();
+
+        this.pb.subscribe('render', this.handleRender);
+
+        this.slideDeck.renderSlide();
+      },
+      (errorMessage) => {
+        console.warn(`error: ${errorMessage}`);
+      },
+    );
+  }
+
+  handleRender(pbInfo) {
+    if (pbInfo.info.slide === 0) {
+      this.pBtn.hide();
+      this.nBtn.show();
+    } else if (pbInfo.info.slide === (pbInfo.info.length - 1)) {
+      this.pBtn.show();
+      this.nBtn.hide();
+    } else {
+      this.pBtn.show();
+      this.nBtn.show();
+    }
+  }
+}
+
+const app = new SlideApp(pb, pBtn, nBtn);
+
+// this is the entry point for the app
+if (document.readyState === 'complete' ||
+    document.readyState === 'loaded' ||
+    document.readyState === 'interactive') {
+  // check if the main container has loaded
+  const main = document.querySelector('.content') || null;
+
+  if (main.length < 1) {
+    setTimeout(() => {
+      app.init();
+    }, 50); // giving the page some time, maybe it will load
+  } else {
+    app.init();
+  }
+} else {
+  window.addEventListener('DOMContentLoaded', () => {
+    // const main = document.querySelector('.content') || null;
+    app.init();
+  });
+}

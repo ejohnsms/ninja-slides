@@ -1,31 +1,31 @@
 export default class SlideContent {
-  constructor(slideData){
-    this._sd = slideData;
+  constructor(slideData) {
+    this.sd = slideData;
   }
 
   getMarkup() {
-    const ID_SELECTOR = '#',
-          slideContent = document.querySelector(ID_SELECTOR + this._sd.type);
+    const ID_SELECTOR = '#';
+    const slideContent = document.querySelector(ID_SELECTOR + this.sd.type);
 
-    Object.keys(this._sd).forEach(function(key) {
+    Object.keys(this.sd).forEach((key) => {
       switch (key) {
         case 'title': {
           const [h1] = slideContent.content.querySelectorAll('h1');
 
-          h1.textContent = this._sd.title;
+          h1.textContent = this.sd.title;
           break;
         }
         case 'description': {
           const [para] = slideContent.content.querySelectorAll('p');
 
-          para.textContent = this._sd.description;
+          para.textContent = this.sd.description;
           break;
         }
         case 'points': {
           const [ul] = slideContent.content.querySelectorAll('ul');
 
           ul.innerHTML = '';
-          this._sd.points.forEach((point) => {
+          this.sd.points.forEach((point) => {
             const li = document.createElement('li');
 
             li.textContent = point;
@@ -36,11 +36,10 @@ export default class SlideContent {
         case 'img': {
           const [img] = slideContent.content.querySelectorAll('img');
 
-          img.src = this._sd.image;
+          img.src = this.sd.image;
           break;
         }
         default:
-
       }
     }, this);
 
