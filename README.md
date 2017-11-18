@@ -19,4 +19,3 @@ slide show presentations of front-end code for back end devs and POs.
 
 #### todo:
 1. make resposive
-2. remove old karma plugins

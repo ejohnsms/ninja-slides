@@ -8,7 +8,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   entry: {
     app: './src/app.js',
-    test: './test/app.Spec.js'
+    test: './test/app.spec.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -86,7 +86,7 @@ module.exports = {
       title: 'Test',
       inject: 'body',
       chunks: ['test'],
-      template: '!!ejs-compiled-loader!./templates/index.Spec.ejs',
+      template: '!!ejs-compiled-loader!./templates/index.spec.ejs',
       filename: 'index.spec.html'
     }),
     new webpack.HotModuleReplacementPlugin(),
