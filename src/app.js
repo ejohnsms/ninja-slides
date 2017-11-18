@@ -9,7 +9,7 @@ import SlideData from './data-access';
 import SlideDeck from './slide-deck';
 import '../styles/index.css';
 
-const gistSlidesUrl = 'https://gist.githubusercontent.com/ejohnsms/078f3601da7128a48ae916c6e9c74654/raw/ecf40674d5cb5e5aa2b592fae5fb10502f28c33a/slides.json';
+const gistSlidesUrl = 'https://gist.githubusercontent.com/ejohnsms/078f3601da7128a48ae916c6e9c74654/raw/b9b8a28736e41dd4f56d6d7edbb036a47075e031/slides.json';
 const [slideContainer] = document.getElementsByClassName('slide-container');
 const [pBtnEl] = document.getElementsByName('prev-button');
 const [nBtnEl] = document.getElementsByName('next-button');
