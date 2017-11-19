@@ -3,8 +3,8 @@
 
 // Import the template binder
 // Take the slide data and attach it to the proper template
+import PubSub from 'pub-sub-pattern';
 import ButtonWidget from './button-widget';
-import PubSub from './pub-sub';
 import SlideData from './data-access';
 import SlideDeck from './slide-deck';
 import '../styles/index.css';
