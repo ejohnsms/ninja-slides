@@ -9,8 +9,8 @@
 .topics {
   border: solid 1px #ccc;
   border-radius: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  box-sizing: border-box;
+  padding: 10px 0px 10px 30px;
 }
 
 .topics li {
